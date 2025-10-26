@@ -57,7 +57,22 @@ export default function FontConverter() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8 relative">
+      {/* GitHub Link */}
+      <a
+        href="https://github.com/activeguild/load-opentype-font"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute top-4 right-4 sm:top-8 sm:right-8 p-2 bg-white rounded-full shadow-lg hover:shadow-xl transition-shadow duration-200 group"
+        aria-label="GitHub Repository"
+      >
+        <img
+          src="/github.svg"
+          alt="GitHub"
+          className="w-8 h-8 sm:w-10 sm:h-10 transition-transform duration-200 group-hover:scale-110"
+        />
+      </a>
+
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
