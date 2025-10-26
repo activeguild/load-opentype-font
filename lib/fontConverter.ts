@@ -200,7 +200,7 @@ export async function convertFont(
 
     const bbox = glyph.getBoundingBox();
     fontData.glyphs[char] = {
-      ha: Math.round(glyph.advanceWidth * scale),
+      ha: Math.round((glyph.advanceWidth ?? 0) * scale),
       x_min: Math.round(bbox.x1 * scale),
       x_max: Math.round(bbox.x2 * scale),
       o: commandString.trim(),
