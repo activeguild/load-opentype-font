@@ -227,23 +227,23 @@ export default function FontConverter() {
           </div>
         </div>
 
-        {/* Output */}
+        {/* Download Button */}
         {output && (
           <div className="bg-white rounded-lg shadow-xl p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium text-gray-900">変換結果</h3>
+            <div className="text-center">
+              <div className="mb-4">
+                <svg className="mx-auto h-12 w-12 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <h3 className="mt-2 text-lg font-medium text-gray-900">変換完了</h3>
+              </div>
               <button
                 onClick={handleDownload}
-                className="bg-green-600 text-white py-2 px-4 rounded-md font-medium
+                className="bg-green-600 text-white py-3 px-6 rounded-md font-medium
                   hover:bg-green-700 transition-colors duration-200"
               >
                 ダウンロード
               </button>
-            </div>
-            <div className="bg-gray-50 rounded-md p-4 overflow-auto max-h-96">
-              <pre className="text-xs text-gray-800 whitespace-pre-wrap break-all">
-                {output}
-              </pre>
             </div>
           </div>
         )}
