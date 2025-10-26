@@ -132,9 +132,10 @@ export async function convertFont(
     },
   };
 
-  let charSet: string[] = [];
+  let glyphsToProcess: Array<{ char: string; glyphIndex: number }> = [];
 
   if (options.restrictCharacters) {
+    let charSet: string[] = [];
     if (options.characterRange) {
       const parts = options.characterRange.split('-');
       if (parts.length === 2) {
@@ -147,16 +148,33 @@ export async function convertFont(
     } else if (options.characterSet) {
       charSet = options.characterSet.split('');
     }
+
+    for (const char of charSet) {
+      const glyph = font.charToGlyph(char);
+      if (glyph && glyph.index !== 0) {
+        glyphsToProcess.push({ char, glyphIndex: glyph.index });
+      }
+    }
   } else {
-    // Export all printable characters
-    for (let i = 32; i < 127; i++) {
-      charSet.push(String.fromCharCode(i));
+    // Export all glyphs in the font
+    for (let i = 0; i < font.glyphs.length; i++) {
+      const glyph = font.glyphs.get(i);
+      if (!glyph || glyph.index === 0) continue;
+
+      // Get all unicode values for this glyph
+      const unicodes = glyph.unicodes || [];
+      if (unicodes.length > 0) {
+        for (const unicode of unicodes) {
+          const char = String.fromCharCode(unicode);
+          glyphsToProcess.push({ char, glyphIndex: glyph.index });
+        }
+      }
     }
   }
 
-  for (const char of charSet) {
-    const glyph = font.charToGlyph(char);
-    if (!glyph || glyph.index === 0) continue;
+  for (const { char, glyphIndex } of glyphsToProcess) {
+    const glyph = font.glyphs.get(glyphIndex);
+    if (!glyph) continue;
 
     const path = glyph.getPath(0, 0, font.unitsPerEm);
     let commandString = '';
